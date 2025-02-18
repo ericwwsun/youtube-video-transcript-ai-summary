@@ -23,8 +23,18 @@ logger = logging.getLogger(__name__)
 app = typer.Typer()
 
 def extract_video_id(url: str) -> str:
-    """Extract video ID from YouTube URL"""
-    pattern = r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
+    """Extract video ID from YouTube URL
+    
+    Args:
+        url: YouTube URL (e.g., https://www.youtube.com/watch?v=LkDelp5WWYU)
+        
+    Returns:
+        The video ID string
+        
+    Raises:
+        ValueError: If the URL format is invalid
+    """
+    pattern = r"(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})"
     match = re.search(pattern, url)
     if match:
         return match.group(1)
