@@ -2,11 +2,11 @@ import typer
 import re
 import os
 import logging
-# import google.generativeai as genai
 from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
 from src.data_type import TranscriptAnalysis
+from src.output_format import format_as_markdown
 
 # Load environment variables
 load_dotenv()
@@ -58,9 +58,10 @@ def summarize(
             },
         )
 
-        # Log the summary
-        logger.info("Generated Summary:")
-        print(response.text)
+        # Format and log the analysis
+        markdown_output = format_as_markdown(response.text)
+        logger.info("Generated Analysis (Markdown format):")
+        print(markdown_output)
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
