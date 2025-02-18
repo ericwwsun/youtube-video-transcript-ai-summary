@@ -15,11 +15,15 @@ def extract_video_id(url: str) -> str:
 
 @app.command()
 def summarize(
-    url: str,
+    url: str = typer.Argument(..., help="YouTube URL (must be in quotes)"),
     model: str = typer.Option("gemini-2.0-flash", help="Model name"),
     format: str = typer.Option("md", help="Output format"),
     lang: str = typer.Option("en", help="Transcript language")
 ):
+    """
+    Fetch and summarize a YouTube video transcript.
+    The URL must be enclosed in quotes, e.g.: "https://www.youtube.com/watch?v=VIDEO_ID"
+    """
     try:
         # Extract the video ID from the URL
         video_id = extract_video_id(url)
