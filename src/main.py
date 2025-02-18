@@ -79,11 +79,11 @@ def summarize(
         transcript_text = " ".join([item['text'] for item in transcript_data])
 
         # Generate summary using Gemini
-        client = genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})
+        client = genai.Client(api_key=api_key)
 
         response = client.models.generate_content(
             model=f'models/{model}',
-            contents=[f"Please provide a concise summary of the transcript. Use this URL for the video_url field: {youtube_url}\n\n{transcript_text}"],
+            contents=[f"Please provide a concise summary of the transcript. If the content is coding related, provide code example with detail explanation in each section. Use this URL for the video_url field: {youtube_url}\n\n{transcript_text}"],
             config={
                 'response_mime_type': 'application/json',
                 'response_schema': TranscriptAnalysis,

@@ -25,9 +25,9 @@ def format_as_markdown(analysis: TranscriptAnalysis) -> str:
     output.append(f"# {analysis.video_title}\n")
     output.append("#transcript")
     output.append(f"\n[Watch Video]({analysis.video_url})")
-    output.append(f"\n**Published Date: {analysis.video_publish_date}**")
-    output.append(f"\n**Summarized By: {analysis.summarize_by_model}**")
-    output.append(f"\n**Date Created: {analysis.create_date}**")
+    # output.append(f"\nPublished Date: {analysis.video_publish_date}")
+    # output.append(f"\nSummarized By: {analysis.summarize_by_model}")
+    output.append(f"\nDate Created: {analysis.create_date}")
     output.append(f"\n## Quick Summary\n{analysis.quick_summary}")
     output.append("\n## Bullet Point Highlights")
     for highlight in analysis.bullet_point_highlights:
