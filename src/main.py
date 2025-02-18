@@ -1,7 +1,13 @@
 import typer
 import re
+import os
 import logging
+import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi
+
+# Configure Google Generative AI
+genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -33,6 +39,14 @@ def summarize(
         # Log first 100 words
         preview = " ".join(transcript_text.split()[:100])
         logger.info(f"First 100 words of transcript: {preview}")
+
+        # Generate summary using Gemini
+        prompt = f"Please provide a concise summary of this video transcript:\n\n{transcript_text}"
+        response = model.generate_content(prompt)
+        
+        # Log the summary
+        logger.info("Generated Summary:")
+        logger.info(response.text)
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
