@@ -50,8 +50,8 @@ def summarize(
         client = genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})
 
         response = client.models.generate_content(
-            model='gemini-2.0-flash',
-            contents="Summary of this video transcript:\n\n{transcript_text}",
+            model='models/gemini-1.5-flash',
+            contents=[f"Please provide a concise summary of the transcript:\n\n{transcript_text}"],
             config={
                 'response_mime_type': 'application/json',
                 'response_schema': TranscriptAnalysis,
