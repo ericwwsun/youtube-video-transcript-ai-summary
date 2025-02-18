@@ -1,5 +1,5 @@
 [project]
-name = "youtube-video-transcript-summary"
+name = "youtube-video-transcript-ai-summary"
 version = "0.1.0"
 description = "CLI tool to generate AI summaries of YouTube video transcripts using Google's Gemini"
 readme = "README.md"
