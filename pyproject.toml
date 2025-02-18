@@ -11,7 +11,6 @@ dependencies = [
     "youtube-transcript-api>=0.6.3",
     "uv>=0.1.0",
     "pydantic>=2.10.6",
-    "asyncio>=3.4.3",
 ]
 
 [build-system]

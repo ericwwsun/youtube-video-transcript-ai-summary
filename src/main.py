@@ -68,12 +68,12 @@ def summarize(
                 'response_schema': TranscriptAnalysis,
             },
         )
+
+        # Log the parsed response in readable format
+        # logger.info(f"Parsed response:\n{pformat(response.dict())}")
         
         # Get the parsed analysis
         analysis = response.parsed
-        
-        # Log the parsed response in readable format
-        logger.info(f"Parsed response:\n{pformat(analysis.dict())}")
         
         # Format the analysis based on format option
         if format.lower() == "json":
@@ -95,7 +95,7 @@ def summarize(
         output_path.write_text(output)
         
         logger.info(f"Analysis saved to: {output_path}")
-        print(output)
+
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
