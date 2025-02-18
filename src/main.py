@@ -7,7 +7,7 @@ from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
 from src.data_type import TranscriptAnalysis
-from src.output_format import format_as_markdown
+from src.output_format import format_as_markdown, format_as_json
 
 # Load environment variables
 load_dotenv()
