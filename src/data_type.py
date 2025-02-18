@@ -9,6 +9,7 @@ class Section(BaseModel):
 class TranscriptAnalysis(BaseModel):
     """Model for storing transcript analysis results"""
     video_title: str
+    video_url: str
     video_publish_date: str
     create_date: str
     summarize_by: str

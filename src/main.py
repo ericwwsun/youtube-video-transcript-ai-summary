@@ -62,7 +62,7 @@ def summarize(
 
         response = client.models.generate_content(
             model='models/gemini-2.0-flash-lite-preview-02-05',
-            contents=[f"Please provide a concise summary of the transcript:\n\n{transcript_text}"],
+            contents=[f"Please provide a concise summary of the transcript. Use this URL for the video_url field: {youtube_url}\n\n{transcript_text}"],
             config={
                 'response_mime_type': 'application/json',
                 'response_schema': TranscriptAnalysis,
