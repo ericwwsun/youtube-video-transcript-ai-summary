@@ -2,7 +2,6 @@ import typer
 import re
 import os
 import logging
-import asyncio
 from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
@@ -32,7 +31,7 @@ def extract_video_id(url: str) -> str:
         raise ValueError("Invalid YouTube URL")
 
 @app.command()
-async def summarize(
+def summarize(
     youtube_url: str = typer.Argument(..., help="YouTube URL (must be in quotes)")
 ):
     """Process a YouTube video URL"""
@@ -50,7 +49,7 @@ async def summarize(
 
         client = genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})
 
-        response = await client.models.generate_content(
+        response = client.models.generate_content(
             model='models/gemini-1.5-flash',
             contents=[f"Please provide a concise summary of the transcript:\n\n{transcript_text}"],
             config={
@@ -62,10 +61,10 @@ async def summarize(
         # Format and log the analysis
         markdown_output = format_as_markdown(response.text)
         logger.info("Generated Analysis (Markdown format):")
-        print(markdown_output)
+        # print(markdown_output)
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
 
 if __name__ == "__main__":
-    asyncio.run(app())
+    app()
