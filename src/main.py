@@ -87,7 +87,7 @@ def summarize(
         filename = f"{video_id}{extension}"
         
         # Ensure transcript directory exists
-        transcript_dir = Path("transcript")
+        transcript_dir = Path("transcript_output")
         transcript_dir.mkdir(exist_ok=True)
         
         # Save the file
