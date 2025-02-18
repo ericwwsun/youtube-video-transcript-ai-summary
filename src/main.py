@@ -51,7 +51,7 @@ def summarize(
         client = genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})
 
         response = client.models.generate_content(
-            model='models/gemini-1.5-flash',
+            model='models/gemini-2.0-flash-lite-preview-02-05',
             contents=[f"Please provide a concise summary of the transcript:\n\n{transcript_text}"],
             config={
                 'response_mime_type': 'application/json',
