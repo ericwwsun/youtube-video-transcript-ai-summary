@@ -4,9 +4,16 @@ import os
 import logging
 import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configure Google Generative AI
-genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+api_key = os.getenv('GEMINI_API_KEY')
+if not api_key:
+    raise ValueError("GEMINI_API_KEY environment variable is not set. Please set it in your .env file.")
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 logging.basicConfig(level=logging.INFO)
