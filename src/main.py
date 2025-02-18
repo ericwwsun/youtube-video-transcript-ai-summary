@@ -43,7 +43,7 @@ def extract_video_id(url: str) -> str:
 
 @app.command()
 def summarize(
-    youtube_url: str = typer.Argument(..., help="YouTube URL (must be in quotes)")
+    youtube_url: str = typer.Argument(..., help="YouTube URL", callback=lambda x: x.strip("\"'"))
 ):
     """Process a YouTube video URL"""
     try:
