@@ -41,7 +41,6 @@ def extract_video_id(url: str) -> str:
     else:
         raise ValueError("Invalid YouTube URL")
 
-@app.command()
 def summarize(
     youtube_url: str = typer.Argument(..., help="YouTube URL", callback=lambda x: x.strip("\"'"))
 ):
@@ -94,3 +93,6 @@ def summarize(
 
 if __name__ == "__main__":
     app()
+else:
+    # This allows the function to be called directly via `uv run summarize`
+    typer.run(summarize)
