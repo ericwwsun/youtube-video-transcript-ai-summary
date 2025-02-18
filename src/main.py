@@ -75,10 +75,8 @@ def summarize(
         # Format the analysis
         markdown_output = format_as_markdown(analysis)
         
-        # Create safe filename (limited to 50 chars)
-        safe_title = "".join(c if c.isalnum() or c in ('-', '_') else '-' for c in analysis.video_title)
-        safe_title = safe_title[:50]  # Limit title length
-        filename = f"{video_id}-{safe_title}.md"
+        # Create filename using video ID
+        filename = f"{video_id}.md"
         
         # Ensure transcript directory exists
         transcript_dir = Path("transcript")
