@@ -56,9 +56,6 @@ def summarize(
         transcript_text = " ".join([item['text'] for item in transcript_list])
 
         # Generate summary using Gemini
-        # prompt = f"Please provide a concise summary of this video transcript:\n\n{transcript_text}"
-        # response = model.generate_content(prompt)
-
         client = genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})
 
         response = client.models.generate_content(
