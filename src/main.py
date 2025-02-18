@@ -65,10 +65,13 @@ def summarize(
         logger.info(f"Response Text: {response.text}")
         logger.info(f"Response Raw: {response}")
         
+        # Get the parsed analysis
+        analysis = response.parsed
+        
         # Format and log the analysis
-        markdown_output = format_as_markdown(response.text)
+        markdown_output = format_as_markdown(analysis)
         logger.info("Generated Analysis (Markdown format):")
-        # print(markdown_output)
+        print(markdown_output)
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)

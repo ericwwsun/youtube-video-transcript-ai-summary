@@ -1,7 +1,14 @@
 from src.data_type import TranscriptAnalysis
 
 def format_as_markdown(analysis: TranscriptAnalysis) -> str:
-    """Format the analysis results as markdown"""
+    """Format the TranscriptAnalysis object as markdown
+    
+    Args:
+        analysis: A TranscriptAnalysis object containing the analysis results
+        
+    Returns:
+        A formatted markdown string
+    """
     output = []
     output.append("# Transcript Analysis")
     output.append(f"\n## Quick Summary\n{analysis.quick_summary}")
