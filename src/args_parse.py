@@ -12,11 +12,17 @@ def parse_youtube_url(url: str) -> str:
     """
     return url.strip("\"'")
 
-def get_summarize_args() -> Tuple[str, str]:
+VALID_MODELS = [
+    "gemini-2.0-flash-lite-preview-02-05",
+    "gemini-2.0-flash",
+    "gemini-1.5-flash"
+]
+
+def get_summarize_args() -> Tuple[str, str, str]:
     """Get and parse command line arguments for summarize command
     
     Returns:
-        Tuple of (youtube_url, format)
+        Tuple of (youtube_url, format, model)
     """
     youtube_url: str = typer.Argument(
         ...,
@@ -29,4 +35,10 @@ def get_summarize_args() -> Tuple[str, str]:
         "-f",
         help="Output format: 'md' or 'json'"
     )
-    return youtube_url, format
+    model: str = typer.Option(
+        VALID_MODELS[0],
+        "--model",
+        "-m",
+        help="Gemini model to use for analysis",
+    )
+    return youtube_url, format, model
