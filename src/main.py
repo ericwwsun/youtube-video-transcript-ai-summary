@@ -2,6 +2,7 @@ import re
 import os
 import typer
 import logging
+from pprint import pformat
 from pathlib import Path
 from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -70,6 +71,9 @@ def summarize(
         
         # Get the parsed analysis
         analysis = response.parsed
+        
+        # Log the parsed response in readable format
+        logger.info(f"Parsed response:\n{pformat(analysis.dict())}")
         
         # Format the analysis based on format option
         if format.lower() == "json":
