@@ -5,7 +5,7 @@ import logging
 from pprint import pformat
 from pathlib import Path
 from google import genai
-from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, NoTranscriptFound
 from dotenv import load_dotenv
 from src.data_type import TranscriptAnalysis
 from src.output_format import format_as_markdown, format_as_json
@@ -46,16 +46,37 @@ def extract_video_id(url: str) -> str:
 def summarize(
     youtube_url: str = args_parse.get_summarize_args()[0],
     format: str = args_parse.get_summarize_args()[1],
-    model: str = args_parse.get_summarize_args()[2]
+    model: str = args_parse.get_summarize_args()[2],
+    lang: str = args_parse.get_summarize_args()[3]
 ):
     """Process a YouTube video URL"""
     try:
         video_id = extract_video_id(youtube_url)
         logger.info(f"Successfully extracted video ID: {video_id}")
         
-        # Fetch transcript
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
-        transcript_text = " ".join([item['text'] for item in transcript_list])
+        # Get available transcripts
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        languages_available = [t.language_code for t in transcript_list]
+
+        if lang in languages_available:
+            # Fetch transcript in specified language
+            transcript = transcript_list.find_transcript([lang])
+            logger.info(f"Fetching transcript in '{lang}' language.")
+        else:
+            # Log and default to English
+            logger.info(f"Language '{lang}' not available. Defaulting to 'en'.")
+            if 'en' in languages_available:
+                transcript = transcript_list.find_transcript(['en'])
+                logger.info("Fetching transcript in 'en' language.")
+            else:
+                # If English is also not available
+                available_langs = ', '.join(languages_available)
+                logger.error(f"No transcripts available in '{lang}' or 'en'. Available languages: {available_langs}")
+                raise ValueError("No suitable transcript available.")
+
+        # Fetch transcript text
+        transcript_data = transcript.fetch()
+        transcript_text = " ".join([item['text'] for item in transcript_data])
 
         # Generate summary using Gemini
         client = genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})

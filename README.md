@@ -25,12 +25,13 @@ uv run summarize "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
 ### Options
-- `--model`: Gemini model name (default: gemini-2.0-flash)
-- `--format`: Output format, either 'json' or 'md' (default: md)
+- `--model`: Gemini model name (default: `gemini-2.0-flash`)
+- `--format`: Output format, either `'json'` or `'md'` (default: `md`)
+- `--lang`: Language code for the transcript (default: `'en'`)
 
 ### Example
 ```bash
-uv run summarize "https://www.youtube.com/watch?v=bAAbrhb3QoM" --format json
+uv run summarize "https://www.youtube.com/watch?v=bAAbrhb3QoM" --format json --lang zh-TW
 ```
 
 ### Output

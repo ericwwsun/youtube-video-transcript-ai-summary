@@ -18,11 +18,11 @@ VALID_MODELS = [
     "gemini-1.5-flash"
 ]
 
-def get_summarize_args() -> Tuple[str, str, str]:
+def get_summarize_args() -> Tuple[str, str, str, str]:
     """Get and parse command line arguments for summarize command
     
     Returns:
-        Tuple of (youtube_url, format, model)
+        Tuple of (youtube_url, format, model, lang)
     """
     youtube_url: str = typer.Argument(
         ...,
@@ -41,4 +41,10 @@ def get_summarize_args() -> Tuple[str, str, str]:
         "-m",
         help="Gemini model to use for analysis",
     )
-    return youtube_url, format, model
+    lang: str = typer.Option(
+        "en",
+        "--lang",
+        "-l",
+        help="Language code for the transcript (default: 'en')"
+    )
+    return youtube_url, format, model, lang
