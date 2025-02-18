@@ -2,6 +2,7 @@ import typer
 import re
 import os
 import logging
+from pathlib import Path
 from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
@@ -61,9 +62,22 @@ def summarize(
         # Get the parsed analysis
         analysis = response.parsed
         
-        # Format and log the analysis
+        # Format the analysis
         markdown_output = format_as_markdown(analysis)
-        logger.info("Generated Analysis (Markdown format):")
+        
+        # Create safe filename
+        safe_title = "".join(c if c.isalnum() or c in ('-', '_') else '-' for c in analysis.video_title)
+        filename = f"{video_id}-{safe_title}-{analysis.summarize_by}.md"
+        
+        # Ensure transcript directory exists
+        transcript_dir = Path("transcript")
+        transcript_dir.mkdir(exist_ok=True)
+        
+        # Save the markdown file
+        output_path = transcript_dir / filename
+        output_path.write_text(markdown_output)
+        
+        logger.info(f"Analysis saved to: {output_path}")
         print(markdown_output)
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
