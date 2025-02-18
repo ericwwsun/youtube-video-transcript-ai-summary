@@ -57,13 +57,6 @@ def summarize(
                 'response_schema': TranscriptAnalysis,
             },
         )
-
-        # Log detailed response information
-        logger.info("Raw Response Details:")
-        logger.info(f"Response Type: {type(response)}")
-        logger.info(f"Response Attributes: {dir(response)}")
-        logger.info(f"Response Text: {response.text}")
-        logger.info(f"Response Raw: {response}")
         
         # Get the parsed analysis
         analysis = response.parsed
