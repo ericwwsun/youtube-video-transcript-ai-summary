@@ -6,7 +6,7 @@ import logging
 from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
-from data_type import TranscriptAnalysis
+from src.data_type import TranscriptAnalysis
 
 # Load environment variables
 load_dotenv()
