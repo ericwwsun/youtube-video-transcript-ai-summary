@@ -1,4 +1,16 @@
+import json
 from src.data_type import TranscriptAnalysis
+
+def format_as_json(analysis: TranscriptAnalysis) -> str:
+    """Format the TranscriptAnalysis object as JSON
+    
+    Args:
+        analysis: A TranscriptAnalysis object containing the analysis results
+        
+    Returns:
+        A formatted JSON string
+    """
+    return json.dumps(analysis.model_dump(), indent=2)
 
 def format_as_markdown(analysis: TranscriptAnalysis) -> str:
     """Format the TranscriptAnalysis object as markdown
