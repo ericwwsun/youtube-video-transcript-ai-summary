@@ -42,7 +42,8 @@ def extract_video_id(url: str) -> str:
         raise ValueError("Invalid YouTube URL")
 
 def summarize(
-    youtube_url: str = typer.Argument(..., help="YouTube URL", callback=lambda x: x.strip("\"'"))
+    youtube_url: str = typer.Argument(..., help="YouTube URL", callback=lambda x: x.strip("\"'")),
+    format: str = typer.Option("md", "--format", "-f", help="Output format: 'md' or 'json'")
 ):
     """Process a YouTube video URL"""
     try:
@@ -71,22 +72,27 @@ def summarize(
         # Get the parsed analysis
         analysis = response.parsed
         
-        # Format the analysis
-        markdown_output = format_as_markdown(analysis)
+        # Format the analysis based on format option
+        if format.lower() == "json":
+            output = format_as_json(analysis)
+            extension = ".json"
+        else:  # default to markdown
+            output = format_as_markdown(analysis)
+            extension = ".md"
         
-        # Create filename using video ID
-        filename = f"{video_id}.md"
+        # Create filename using video ID and format extension
+        filename = f"{video_id}{extension}"
         
         # Ensure transcript directory exists
         transcript_dir = Path("transcript")
         transcript_dir.mkdir(exist_ok=True)
         
-        # Save the markdown file
+        # Save the file
         output_path = transcript_dir / filename
-        output_path.write_text(markdown_output)
+        output_path.write_text(output)
         
         logger.info(f"Analysis saved to: {output_path}")
-        print(markdown_output)
+        print(output)
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
