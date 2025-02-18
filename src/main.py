@@ -8,8 +8,8 @@ from google import genai
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, NoTranscriptFound
 from dotenv import load_dotenv
 from src.data_type import TranscriptAnalysis
-from src.output_format import format_as_markdown, format_as_json
-from src import args_parse
+from src.modules.output_format import format_as_markdown, format_as_json
+from src.modules import args_parse
 
 # Load environment variables
 load_dotenv()
