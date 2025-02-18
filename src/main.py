@@ -35,10 +35,6 @@ def summarize(
         # Fetch transcript
         transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
         transcript_text = " ".join([item['text'] for item in transcript_list])
-        
-        # Log first 100 words
-        preview = " ".join(transcript_text.split()[:100])
-        logger.info(f"First 100 words of transcript: {preview}")
 
         # Generate summary using Gemini
         prompt = f"Please provide a concise summary of this video transcript:\n\n{transcript_text}"
