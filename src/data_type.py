@@ -12,7 +12,7 @@ class TranscriptAnalysis(BaseModel):
     video_url: str
     video_publish_date: str
     create_date: str
-    summarize_by: str
+    summarize_by_model: str
     quick_summary: str
     bullet_point_highlights: List[str]
     sentiment_analysis: str
