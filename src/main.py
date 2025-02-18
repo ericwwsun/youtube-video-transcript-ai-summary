@@ -1,5 +1,9 @@
 import typer
 import re
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = typer.Typer()
 
@@ -19,7 +23,7 @@ def summarize(
     """Process a YouTube video URL"""
     try:
         video_id = extract_video_id(youtube_url)
-        print(f"Successfully extracted video ID: {video_id}")
+        logger.info(f"Successfully extracted video ID: {video_id}")
     except ValueError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(code=1)
