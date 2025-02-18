@@ -1,6 +1,6 @@
-import typer
 import re
 import os
+import typer
 import logging
 from pathlib import Path
 from google import genai
@@ -8,6 +8,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
 from src.data_type import TranscriptAnalysis
 from src.output_format import format_as_markdown, format_as_json
+from src import args_parse
 
 # Load environment variables
 load_dotenv()
@@ -42,8 +43,8 @@ def extract_video_id(url: str) -> str:
         raise ValueError("Invalid YouTube URL")
 
 def summarize(
-    youtube_url: str = typer.Argument(..., help="YouTube URL", callback=lambda x: x.strip("\"'")),
-    format: str = typer.Option("md", "--format", "-f", help="Output format: 'md' or 'json'")
+    youtube_url: str = args_parse.get_summarize_args()[0],
+    format: str = args_parse.get_summarize_args()[1]
 ):
     """Process a YouTube video URL"""
     try:
