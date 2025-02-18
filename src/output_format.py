@@ -19,14 +19,15 @@ def format_as_markdown(analysis: TranscriptAnalysis) -> str:
     output.append("\n## Bullet Point Highlights")
     for highlight in analysis.bullet_point_highlights:
         output.append(f"* {highlight}")
-    output.append(f"\n## Sentiment Analysis\n{analysis.sentiment_analysis}")
-    output.append("\n## Keywords")
-    for keyword in analysis.keywords:
-        output.append(f"* {keyword}")
     
     output.append("\n## Sections")
     for section in analysis.sections:
         output.append(f"\n### {section.section_title}")
         output.append(f"\n{section.section_summary}")
+        
+    output.append(f"\n## Sentiment Analysis\n{analysis.sentiment_analysis}")
+    output.append("\n## Keywords")
+    for keyword in analysis.keywords:
+        output.append(f"* {keyword}")
     
     return "\n".join(output)
