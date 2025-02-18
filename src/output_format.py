@@ -10,11 +10,11 @@ def format_as_markdown(analysis: TranscriptAnalysis) -> str:
         A formatted markdown string
     """
     output = []
-    output.append("# Transcript Analysis")
-    output.append(f"\n**Video Title**\n{analysis.video_title}")
-    output.append(f"\n**Published Date**\n{analysis.video_publish_date}")
-    output.append(f"\n**Summarized By**\n{analysis.summarize_by}")
-    output.append(f"\n**Analysis Created**\n{analysis.create_date}")
+    output.append(f"# {analysis.video_title}\n")
+    output.append("#transcript")
+    output.append(f"\n**Published Date: {analysis.video_publish_date}**")
+    output.append(f"\n**Summarized By: {analysis.summarize_by}**")
+    output.append(f"\n**Date Created: {analysis.create_date}**")
     output.append(f"\n## Quick Summary\n{analysis.quick_summary}")
     output.append("\n## Bullet Point Highlights")
     for highlight in analysis.bullet_point_highlights:
