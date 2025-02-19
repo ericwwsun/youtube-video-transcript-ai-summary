@@ -21,4 +21,4 @@ build-backend = "hatchling.build"
 packages = ["src"]
 
 [project.scripts]
-summarize = "src.main:app"
+summarize = "src.main:summarize"

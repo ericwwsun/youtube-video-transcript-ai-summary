@@ -43,6 +43,7 @@ def extract_video_id(url: str) -> str:
     else:
         raise ValueError("Invalid YouTube URL")
 
+@typer.run
 def summarize(
     youtube_url: str = args_parse.get_summarize_args()[0],
     format: str = args_parse.get_summarize_args()[1],
@@ -123,6 +124,4 @@ def summarize(
 
 if __name__ == "__main__":
     app()
-else:
-    # This allows the function to be called directly via `uv run summarize`
-    typer.run(summarize)
+

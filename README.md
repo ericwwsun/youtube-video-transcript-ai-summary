@@ -31,7 +31,7 @@ uv run summarize "https://www.youtube.com/watch?v=VIDEO_ID"
 
 ### Example
 ```bash
-uv run summarize "https://www.youtube.com/watch?v=bAAbrhb3QoM" --format json --lang zh-TW
+uv run summarize "https://www.youtube.com/watch?v=uSzffuqfJQk" --format json --lang zh
 ```
 
 ### Output
